@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +26,9 @@ Route::post('/register', [UserController::class,"Register"]);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/test', [UserController::class,"Test"]);
+    Route::post('/product', [ProductController::class,"Product"]);
+    Route::post('/category_create', [CategoryController::class,"Category_create"]);
+    Route::post('/category_update', [CategoryController::class,"Category_Update"]);
+    Route::post('/category_delete', [CategoryController::class,"Category_Delete"]);
+    Route::post('/list_category', [CategoryController::class,"List_Category"]);
 });
