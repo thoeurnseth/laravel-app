@@ -26,9 +26,12 @@ Route::post('/register', [UserController::class,"Register"]);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/test', [UserController::class,"Test"]);
-    Route::post('/product', [ProductController::class,"Product"]);
+    Route::post('/product_create',  [ProductController::class,"Product"]);
+    Route::post('/product_update',  [ProductController::class,"Product_Update"]);
+    Route::post('/product_delete',  [ProductController::class,"Product_Delete"]);
+    Route::post('/list_product',    [ProductController::class,"List_Product"]);
     Route::post('/category_create', [CategoryController::class,"Category_create"]);
     Route::post('/category_update', [CategoryController::class,"Category_Update"]);
     Route::post('/category_delete', [CategoryController::class,"Category_Delete"]);
-    Route::post('/list_category', [CategoryController::class,"List_Category"]);
+    Route::post('/list_category',   [CategoryController::class,"List_Category"]);
 });
