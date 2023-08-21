@@ -7,7 +7,12 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function Product(Request $request){
+
+    public function Product(){
+        return view('product');
+    }
+
+    public function Product_Create(Request $request){
         $category_id    = $request->category_id;
         $price          = $request->price;
         $product_name   = $request->product_name;
