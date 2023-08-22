@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\ProductController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +18,17 @@ use  App\Http\Controllers\ProductController;
 */
 
 Route::get('/', function () {
-    return view('master');
+    return view('dashboard');
 });
 
 // Route::middleware(['auth'])->group(function () {
-    Route::get('/product',        [ProductController::class,  'Product']);
-    Route::get('/product_create',        [ProductController::class,  'Product_Create']);
+    Route::get('/dashboard',            [DashboardController::class,'adminDashboard']);
+    Route::get('/product',              [ProductController::class,  'product']);
+    Route::get('/category',             [CategoryController::class, 'Category']);
+    Route::get('/category',             [CategoryController::class, 'ListCategory']);
+    Route::POST('/create-category',     [CategoryController::class, 'CreateCategory']);
+    Route::POST('/update-category',     [CategoryController::class, 'UpdateCategory']);
+    Route::POST('/delete-category',     [CategoryController::class, 'DeleteCategory']);
+
+    Route::get('/orders',               [OrdersController::class,   'Orders']);
 // });

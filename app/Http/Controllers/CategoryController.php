@@ -8,7 +8,13 @@ use Illuminate\Support\Facades\Date;
 
 class CategoryController extends Controller
 {
-    public function Category_create(Request $request){
+    public function Category(){
+        return view('category');
+    }
+
+    //for api
+
+    public function Category_Create(Request $request){
         $category_title = $request->category_title;
         if(!empty($category_title)){
             $category = Category::create([
@@ -92,4 +98,49 @@ class CategoryController extends Controller
         }
         return $data_json;    
     }
+
+    //for web
+    public function ListCategory(){
+        $dataCategory = Category::where('status', 1)->orderBy('id', 'asc')->get();
+        return view('category', ['dataCategory' =>  $dataCategory]);
+    }
+
+    public function CreateCategory(Request $request){
+        $category   = $request->input('category');
+        $createData = Category::create([
+            'category_title' => $category,
+            'status' => 1,
+        ]);
+
+        if($createData->save()){
+            return redirect('category')->with('status', 'Create Success');
+        }else{
+            return redirect('category')->with('status', ' Create failed');
+        }
+    }
+
+    public function UpdateCategory(Request $request){
+        $category   = $request->input('category');
+        $id         = $request->input('category_id');
+
+        $updateData = Category::where('id', $id)
+                                ->update([
+                                    'category_title' => $category,
+                                ]);
+        if($updateData){
+            return redirect('category')->with(['update-status' => 'update success']);
+        }
+    }
+
+    public function DeleteCategory(Request $request){
+        $id = $request->input('data_id');
+        $updateData = Category::where('id', $id)
+                                ->update([
+                                    'status' => 0,
+                                ]);
+        if($updateData) {
+            return redirect('category')->with(['delete-status' => 'update success']);
+        } 
+    }
+
 }

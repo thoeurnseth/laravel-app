@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard</title>
+  <title>@yield('site-title')</title>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -24,9 +24,21 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  {{-- data table --}}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  {{-- register css --}}
+  <link href="{{ asset('/css/style.css') }}" rel="stylesheet"> 
+
 </head>
     <body class="hold-transition sidebar-mini layout-fixed">
-          <!-- Navbar -->
+        
+        {{-- script for alert Success --}}
+        <!-- Toastr -->
+        <script src="../../plugins/toastr/toastr.min.js"></script>
+        <!-- jQuery -->
+        <script src="../../plugins/jquery/jquery.min.js"></script>
+
+        <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
@@ -164,13 +176,13 @@
             </ul>
         </nav>
 
-          <!-- Main Sidebar Container -->
+        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="/dashboard" class="brand-link">
                 <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
-            </a>
+                <span class="brand-text font-weight-light">Electronic</span>
+            </a>    
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -182,24 +194,13 @@
                         <a href="#" class="d-block">Mr Seth</a>
                     </div>
                 </div>
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link active">
+                                    <a href="/dashboard" class="nav-link active">
                                         <i class="nav-icon fas fa-tachometer-alt"></i>
                                         <p>Dashboard</p>
                                     </a>
@@ -211,13 +212,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
+                                    <a href="/category" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Category</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
+                                    <a href="/orders" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Orders</p>
                                     </a>
@@ -230,77 +231,22 @@
         </aside>
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
+            {{-- <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">@yield('header-left')</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item active">@yield('header-right')</li>
                             </ol>
                         </div>
                     </div>
                 </div>
-            </div>   
-
-            <section class="content">
-                <div class="container-fluid">
-                    @yield('main-master')
-                    {{-- <div class="row">  
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>150</h3>
-                                    <p>New Orders</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-                                    <p>Bounce Rate</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats-bars"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>44</h3>
-                                    <p>User Registrations</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>65</h3>
-                                    <p>Unique Visitors</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
-            </section>
+            </div>  --}}
+            @yield('main-master')
         </div>
 
         <!-- jQuery -->
@@ -337,5 +283,10 @@
         <script src="dist/js/demo.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="dist/js/pages/dashboard.js"></script>
+        {{-- data table --}}
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+        {{-- register script --}}
+        <script src="{{ asset('js/app.js')}}"></script>
     </body>
 </html>

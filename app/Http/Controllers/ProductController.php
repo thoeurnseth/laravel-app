@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -11,7 +12,7 @@ class ProductController extends Controller
     public function Product(){
         return view('product');
     }
-
+    // for api
     public function Product_Create(Request $request){
         $category_id    = $request->category_id;
         $price          = $request->price;
@@ -85,5 +86,10 @@ class ProductController extends Controller
             //     ['status', '=', '1']
             // ]
         return $list_product;
+    }
+
+    // for web
+    public function CreateProduct(){
+
     }
 }
